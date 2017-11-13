@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-dev": "browserify --debug ./src/mapcat-mapview-init.js --standalone mapcatview > dist/mapcatview-dev.js",
     "build-min": "browserify ./src/mapcat-mapview-init.js -t uglifyify --standalone mapcatview | uglifyjs > dist/mapcatview-min.js",
-    "lint": "./node_modules/.bin/standard",
-    "lint-fix": "./node_modules/.bin/standard --fix"
+    "lint": "./node_modules/.bin/eslint src/mapcat-mapview-init.js"
   },
   "dependencies": {
     "browserify": "^14.5.0",
@@ -26,7 +25,8 @@
   },
   "homepage": "https://github.com/MAPCATcom/mapcat-mapview-init#readme",
   "devDependencies": {
-    "standard": "^10.0.3"
+    "eslint": "https://registry.npmjs.org/eslint/-/eslint-3.19.0.tgz",
+    "eslint-plugin-es5": "^1.1.0"
   },
   "standard": {
     "ignore": [
