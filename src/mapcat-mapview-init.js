@@ -1,24 +1,23 @@
 var https = require('https');
-//var querystring = require('querystring');
 
-function initRasterView(layers, lang, schema, scale, userid, callback){
+function initRasterView(layers, lang, schema, scale, userid, callback) {
     var type = 'raster';
     initView(type, layers, userid, callback, lang, schema, scale);
 }
 
-function initVectorView(layers, userid, callback){
+function initVectorView(layers, userid, callback) {
     var type = 'vector';
     initView(type, layers, userid, callback);
 }
 
-function initView(type, layers, userid, callback, lang, schema, scale){
+function initView(type, layers, userid, callback, lang, schema, scale) {
     var data = {};
     data.type = type;
     try {
-        if(layers === undefined || layers === "" || Object.keys(layers).length === 0 && layers.constructor === Object) {
+        if (layers === undefined || layers === "" || Object.keys(layers).length === 0 && layers.constructor === Object) {
             throw new Error('Undefined or invalid layers!');
         }
-        if(type === 'raster') {
+        if (type === 'raster') {
             if(lang !== undefined) {
                 if(lang.length !== 2) {
                     throw new Error('Invalid lang!');
@@ -31,7 +30,7 @@ function initView(type, layers, userid, callback, lang, schema, scale){
             }
             if(scale !== undefined) {
                 var s = Number(scale);
-                if(s<1 || s>2) {
+                if(s < 1 || s > 2) {
                     throw new Error('Invalid scale!');
                 } else {
                     data.scale = s;
@@ -57,20 +56,19 @@ function initView(type, layers, userid, callback, lang, schema, scale){
 
     cb = function(response) {
         var str = ''
-        response.on('data', function (chunk) {
+        response.on('data', function(chunk) {
             str += chunk;
         });
 
-        response.on('end', function () {
-            console.log(str);
+        response.on('end', function() {
             callback(null, str);
         });
     }
     var req = https.request(options, cb);
     req.write(post_data);
     req.end();
-    req.on('error', function(err){
-        console.log("error:",err);
+    req.on('error', function(err) {
+        console.log("error:", err);
     })
 }
 
