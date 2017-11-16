@@ -2,47 +2,65 @@
 /*eslint-env node*/
 var https = require('https');
 
-function initRasterView (layers, lang, schema, scale, userid, callback) {
+function initRasterView (accessToken, layerOptions, rasterOptions, callback) {
     var type = 'raster';
-    initView(type, layers, userid, callback, lang, schema, scale);
+    initView(type, accessToken, callback, layerOptions, rasterOptions);
 }
 
-function initVectorView (layers, userid, callback) {
+function initVectorView (accessToken, layerOptions, callback) {
     var type = 'vector';
-    initView(type, layers, userid, callback);
+    initView(type, accessToken, callback, layerOptions);
 }
 
-function initView (type, layers, userid, callback, lang, schema, scale) {
+function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
     var data = {};
     data.type = type;
     try {
-        if (layers === undefined || layers === '' || (Object.keys(layers).length === 0 && layers.constructor === Object)) {
-            throw new Error('Undefined or invalid layers!');
-        } else {
-            for (var i in layers) {
-                if (typeof (layers[i]) !== 'string') {
-                    throw new Error('Invalid layer! Type error!');
-                }
+        if (accessToken === undefined || accessToken === null || typeof(accessToken) !== 'string' || accessToken.length === 0){
+            throw new Error('Invalid acces token! Expected: string value');
+        }
+        var layers = {
+            base: '',
+            ocean: '',
+            relief: '',
+            landcover: ''
+        };
+        if (vectorOptions && vectorOptions.cycle) {
+            if (vectorOptions.cycle.road && typeof(vectorOptions.cycle.road) !== 'boolean') {
+                throw new Error('Layer option cycle.road set, but invalid type. Expected: true or false');
+            }
+            if (vectorOptions.cycle.route && typeof(vectorOptions.cycle.route) !== 'boolean') {
+                throw new Error('Layer option cycle.route set, but invalid type. Expected: true or false');
+            }
+            if (vectorOptions.cycle.road === true && vectorOptions.cycle.route === true) {
+                layers.cycle = '';
+            } else if (vectorOptions.cycle.road === true) {
+                layers.cycle = '--,road';
+            } else if (vectorOptions.cycle.route === true) {
+                layers.cycle = '--,route';
             }
         }
+        data.layers = layers;
         if (type === 'raster') {
-            if (lang !== undefined) {
-                if (lang.length !== 2) {
-                    throw new Error('Invalid lang!');
-                } else {
-                    data.lang = lang;
+            if (rasterOptions && rasterOptions.lang !== undefined && rasterOptions.lang !== null) {
+                if (typeof(rasterOptions.lang) !== 'string') {
+                    throw new Error('Invalid language parameter type! Expected: string value or null');
                 }
+                data.labels = rasterOptions.lang;
+            } else if (rasterOptions && rasterOptions.lang === null) {
+                data.labels = '';
+            } else {
+                data.labels = 'en';
             }
-            if (schema !== undefined) {
-                data.schema = schema;
-            }
-            if (scale !== undefined) {
-                var s = Number(scale);
-                if (s < 1 || s > 2) {
-                    throw new Error('Invalid scale!');
-                } else {
+            if (rasterOptions && rasterOptions.scale !== undefined && rasterOptions.scale !== null) {
+                var s = Number(rasterOptions.scale);
+                if (s === 1 || s === 2) {
                     data.scale = s;
+                } else {
+                    throw new Error('Invalid scale! Expected scale value: 1 or 2');
                 }
+            } else {
+                data.scale = 1;
             }
         }
     } catch (error) {
@@ -58,7 +76,7 @@ function initView (type, layers, userid, callback, lang, schema, scale) {
         headers: {
             'Content-Type': 'application/json',
             'Content-Length': Buffer.byteLength(postData),
-            'X-Api-Key': userid
+            'X-Api-Key': accessToken
         }
     };
 
@@ -76,7 +94,7 @@ function initView (type, layers, userid, callback, lang, schema, scale) {
     req.write(postData);
     req.end();
     req.on('error', function (err) {
-        console.log('error:', err);
+        return callback(err.message);
     });
 }
 
