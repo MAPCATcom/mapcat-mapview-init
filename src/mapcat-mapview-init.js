@@ -2,20 +2,23 @@
 /*eslint-env node*/
 var https = require('https');
 
-function initRasterView (accesToken, layerOptions, rasterOptions, callback) {
+function initRasterView (accessToken, layerOptions, rasterOptions, callback) {
     var type = 'raster';
-    initView(type, accesToken, callback, layerOptions, rasterOptions);
+    initView(type, accessToken, callback, layerOptions, rasterOptions);
 }
 
-function initVectorView (accesToken, layerOptions, callback) {
+function initVectorView (accessToken, layerOptions, callback) {
     var type = 'vector';
-    initView(type, accesToken, callback, layerOptions);
+    initView(type, accessToken, callback, layerOptions);
 }
 
-function initView (type, accesToken, callback, vectorOptions, rasterOptions) {
+function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
     var data = {};
     data.type = type;
     try {
+        if (accessToken === undefined || accessToken === null || typeof(accessToken) !== 'string' || accessToken.length === 0){
+            throw new Error('Invalid acces token! Expected: string value');
+        }
         var layers = {
             base: '',
             ocean: '',
@@ -73,7 +76,7 @@ function initView (type, accesToken, callback, vectorOptions, rasterOptions) {
         headers: {
             'Content-Type': 'application/json',
             'Content-Length': Buffer.byteLength(postData),
-            'X-Api-Key': accesToken
+            'X-Api-Key': accessToken
         }
     };
 
