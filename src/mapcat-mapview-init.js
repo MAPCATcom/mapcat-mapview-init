@@ -87,7 +87,19 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
         });
 
         response.on('end', function () {
-            callback(null, str);
+            var url = '';
+            var resJson = {};
+            try {
+                resJson = JSON.parse(str);
+                if (resJson.url && typeof(resJson.url) === 'string') {
+                    url = resJson.url;
+                } else {
+                    return callback('Error while getting mapview url! Error: ' + str);
+                }
+            } catch (error) {
+                return callback('Unable to parse response! Error: ' + str);
+            }
+            callback(null, url);
         });
     };
     var req = https.request(options, cb);
