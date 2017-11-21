@@ -46,11 +46,11 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
                 if (typeof(rasterOptions.lang) !== 'string') {
                     throw new Error('Invalid language parameter type! Expected: string value or null');
                 }
-                data.labels = rasterOptions.lang;
+                data.lang = rasterOptions.lang;
             } else if (rasterOptions && rasterOptions.lang === null) {
-                data.labels = '';
+                data.lang = '';
             } else {
-                data.labels = 'en';
+                data.lang = 'en';
             }
             if (rasterOptions && rasterOptions.scale !== undefined && rasterOptions.scale !== null) {
                 var s = Number(rasterOptions.scale);
@@ -69,9 +69,9 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
 
     var postData = JSON.stringify(data);
     var options = {
-        host: 'httpbin.org',
+        host: 'api-dev.mapcat.com',
         port: 443,
-        path: '/post',
+        path: '/api/mapinit',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
             try {
                 resJson = JSON.parse(str);
                 if (resJson.url && typeof(resJson.url) === 'string') {
-                    url = resJson.url;
+                    url = 'http://' + resJson.url;
                 } else {
                     return callback('Error while getting mapview url! Error: ' + str);
                 }
