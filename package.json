@@ -1,7 +1,7 @@
 {
   "name": "@mapcat/mapview-init",
   "version": "0.0.1",
-  "description": "The mapcat-mapview-init javascript library is used to obtain MAPCAT raster (and vector) tile urls.",
+  "description": "The @mapcat/mapview-init javascript library is used to obtain MAPCAT raster (and vector) tile urls.",
   "main": "./src/mapcat-mapview-init.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

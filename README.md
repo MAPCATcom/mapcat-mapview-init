@@ -1,10 +1,11 @@
-# mapcat-mapview-init
+# @mapcat/mapview-init
 
-The *mapcat-mapview-init* javascript library is used to obtain MAPCAT raster (and vector) tile urls, that you can use for your [Leaflet](http://leafletjs.com/) and [OpenLayers](https://openlayers.org/) projects. You can find the prebuilt version of the javascript library under `./dist` folder.
+The *@mapcat/mapview-init* javascript library is used to obtain MAPCAT raster (and vector) tile urls, that you can use for your [Leaflet](http://leafletjs.com/) and [OpenLayers](https://openlayers.org/) projects. You can find the prebuilt version of the javascript library under `./dist` folder.
 
 ## Build dependencies
 * node (min _v6.9.5_)
 * npm (min _4.3.0_)
+* yarn (min _1.3.2_)
 
 ## Build
 * Clone or download zip file from [MAPCATcom/mapcat-mapview-init](https://github.com/MAPCATcom/mapcat-mapview-init.git) repository  
@@ -12,11 +13,11 @@ The *mapcat-mapview-init* javascript library is used to obtain MAPCAT raster (an
 * Go to the cloned (or unzipped) project main folder  
 `cd mapcat-mapview-init`
 * Install Node.js dependencies  
-`npm install`
+`yarn` or `yarn install`
 * To build release version  
-`npm run build-min`
+`yarn build-min`
 * To build debug version  
-`npm run build-dev`
+`yarn build-dev`
 
 If the build was successful you can find under `./dist` folder the recently built release (`mapcatview-min.js`) or debug (`mapcatview-dev.js`) version of library.  
 
