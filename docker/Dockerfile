@@ -13,6 +13,7 @@ WORKDIR /opt/mapview/
 
 ADD src /opt/mapview/src
 ADD *.json /opt/mapview/
+ADD yarn.lock /opt/mapview/
 
 RUN yarn
 RUN yarn build-min
