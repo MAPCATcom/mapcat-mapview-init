@@ -6,6 +6,7 @@ ARG TYPE=basic
 ENV NODE_ENV production
 
 RUN npm install -g static-server
+RUN npm install -g yarn
 
 RUN mkdir -p /opt/mapview/dist/
 WORKDIR /opt/mapview/
@@ -13,8 +14,8 @@ WORKDIR /opt/mapview/
 ADD src /opt/mapview/src
 ADD *.json /opt/mapview/
 
-RUN npm install
-RUN npm run build-min
+RUN yarn
+RUN yarn build-min
 
 ADD example /opt/mapview/dist/
 
