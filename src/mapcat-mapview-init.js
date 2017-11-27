@@ -94,7 +94,7 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
                 if (resJson.error) {
                     return callback(resJson.error);
                 } else if (resJson.url && typeof(resJson.url) === 'string') {
-                    url = 'http://' + resJson.url;
+                    url = document.location.protocol + '//' + resJson.url;
                 } else {
                     return callback('Unexpected error! ' + str);
                 }
