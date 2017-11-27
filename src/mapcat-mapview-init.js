@@ -17,7 +17,7 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
     data.type = type;
     try {
         if (accessToken === undefined || accessToken === null || typeof(accessToken) !== 'string' || accessToken.length === 0){
-            throw new Error('Invalid acces token! Expected: string value');
+            throw new Error('Invalid access token! Expected: string value');
         }
         var layers = {
             base: '',
@@ -91,10 +91,12 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
             var resJson = {};
             try {
                 resJson = JSON.parse(str);
-                if (resJson.url && typeof(resJson.url) === 'string') {
+                if (resJson.error) {
+                    return callback(resJson.error);
+                } else if (resJson.url && typeof(resJson.url) === 'string') {
                     url = 'http://' + resJson.url;
                 } else {
-                    return callback('Error while getting mapview url! Error: ' + str);
+                    return callback('Unexpected error! ' + str);
                 }
             } catch (error) {
                 return callback('Unable to parse response! Error: ' + str);
