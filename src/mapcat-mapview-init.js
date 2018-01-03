@@ -69,7 +69,7 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
 
     var postData = JSON.stringify(data);
     var options = {
-        host: 'api-dev.mapcat.com',
+        host: 'api.mapcat.com',
         port: 443,
         path: '/api/mapinit',
         method: 'POST',

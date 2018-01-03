@@ -11,7 +11,7 @@ function init(){
 }
 
 function load(layerOptions, rasterOptions){
-    mapcatview.initRasterView('NrP1WQLjuHTU220tHAbs3fzRdIg0nmhjMeL2pvwj', layerOptions, rasterOptions, function(error, response) {
+    mapcatview.initRasterView('jM9oGlsfWxOOYYF0kvuq2UbYl3XrVuUzJmwfnB6M', layerOptions, rasterOptions, function(error, response) {
         if (error) {
             console.log(error);
             return;
