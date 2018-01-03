@@ -1,3 +1,6 @@
+## 0.0.3 (Januar 3, 2018)
+- Change API url
+
 ## 0.0.2 (November 27, 2017)
 - Forward server error response
 - Response url protocol fix
