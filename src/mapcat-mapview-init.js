@@ -14,7 +14,6 @@ function initVectorView (accessToken, layerOptions, callback) {
 
 function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
     var data = {};
-    data.type = type;
     try {
         if (accessToken === undefined || accessToken === null || typeof(accessToken) !== 'string' || accessToken.length === 0){
             throw new Error('Invalid access token! Expected: string value');
@@ -41,7 +40,15 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
             }
         }
         data.layers = layers;
-        if (type === 'raster') {
+        if (type === 'vector') {
+            //default mapbox compatible style sheet
+            data.type = 1;
+            if (vectorOptions && vectorOptions.tileStyle) {
+                if (vectorOptions.tileStyle === 'openlayers') {
+                    data.type = 2;
+                }
+            }
+        } else if (type === 'raster') {
             if (rasterOptions && rasterOptions.lang !== undefined && rasterOptions.lang !== null) {
                 if (typeof(rasterOptions.lang) !== 'string') {
                     throw new Error('Invalid language parameter type! Expected: string value or null');
@@ -71,7 +78,7 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
     var options = {
         host: 'api.mapcat.com',
         port: 443,
-        path: '/api/mapinit',
+        path: '/api/mapinit/' + type,
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -93,8 +100,10 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
                 resJson = JSON.parse(str);
                 if (resJson.error) {
                     return callback(resJson.error);
-                } else if (resJson.url && typeof(resJson.url) === 'string') {
+                } else if (type === 'raster' && resJson.url && typeof(resJson.url) === 'string') {
                     url = document.location.protocol + '//' + resJson.url;
+                } else if (type === 'vector') {
+                    return callback(null, resJson);
                 } else {
                     return callback('Unexpected error! ' + str);
                 }
