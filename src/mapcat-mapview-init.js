@@ -40,7 +40,7 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
             }
         }
         data.layers = layers;
-        if(type === 'vector') {
+        if (type === 'vector') {
             //default mapbox compatible style sheet
             data.type = 1;
             if (vectorOptions && vectorOptions.tileStyle) {
