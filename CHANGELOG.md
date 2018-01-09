@@ -1,3 +1,8 @@
+## 0.0.4 (Januar 9, 2018)
+- Follow MapInit API url changes
+- Vector map style is returned from MapInit API call
+- Handle OpenLayers and Mapbox compatible style sheets
+
 ## 0.0.3 (Januar 3, 2018)
 - Change API url
 
