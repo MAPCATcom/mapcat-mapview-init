@@ -37,8 +37,13 @@ To initialize Mapcat mapview use one of the following functions
 `mapcatview.initVectorView(accessToken, layerOptions, callback);`  
   
 #### Example
+
 ```javascript
 mapcatview.initRasterView('< YOUR MAPCAT ACCESS TOKEN >', null, null, function(error, response) {
+    //your code
+});
+
+mapcatview.initVectorView('< YOUR MAPCAT ACCESS TOKEN >', null, function(error, response) {
     //your code
 });
 ```
@@ -68,7 +73,7 @@ Parameter *scale* must be `1` or `2`. By default, it is `1`, meaning that the re
 }
 ```
 #### callback (error, response): *function* `(required)` - Callback function  
-The last parameter must be a callback function. It gets called when the map initialization request returns from our server. Upon failure, the first parameter holds the error message (`null` means no error), the second parameter is the response data holding your templated map view url (*string*).
+It gets called when the map initialization request returns from our server. The first parameter holds the error message (`null` means no error), the second parameter in case of initRasterView function call is the response data holding your templated map view url (*string*). In case of using initVectorView the response data holds the vector tile style sheet (*object*).
 
 ### Example with [Leaflet JS](http://leafletjs.com/)
 In your HTML page `<head>` include Leaflet CSS file
@@ -124,6 +129,51 @@ mapcatview.initRasterView('< YOUR MAPCAT ACCESS TOKEN >', layerOptions, rasterOp
     // Your code...
 });
 ```
+
+### Example with [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js)
+In your HTML page `<head>` include Mapbox GL CSS file
+```html
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/0.43.0/mapbox-gl.css" />
+```
+Put a div element in `<body>` section to your map
+```html
+<div id="map" style="width: 400px; height: 300px;"></div>
+```
+Include Mapbox GL JS JavaScript, mapcat-mapview-init.js and your own script file in this order
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/0.43.0/mapbox-gl.js"></script>
+<script src="mapcatview-min.js"></script>
+<script src="script.js"></script>
+```
+In your script file initialize your map
+```javascript
+var layerOptions = {
+    cycle: {
+        road: true,
+        route: true
+    }
+};
+
+mapcatview.initVectorView('< YOUR MAPCAT ACCESS TOKEN >', layerOptions, function(error, response) {
+    if (error) {
+        console.log(error);
+        return;
+        // Error handling...
+    }
+
+    var styleSheet = response;
+
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: styleSheet,
+        center: [0, 51.5],
+        zoom: 13
+    });
+
+    // Your code...
+});
+```
+
 Substitute `< YOUR MAPCAT ACCESS TOKEN >` with your access token.  
 
 Read [MAPCAT for Developers](https://docs.mapcat.com) for more information and examples.

@@ -14,6 +14,10 @@ function initVectorView (accessToken, layerOptions, callback) {
 
 function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
     var data = {};
+    data.protocol = (document && document.location && document.location.protocol) ?  document.location.protocol : "http";
+    if (data.protocol !== "http" && data.protocol !== "https") {
+        data.protocol = "http";
+    }
     try {
         if (accessToken === undefined || accessToken === null || typeof(accessToken) !== 'string' || accessToken.length === 0){
             throw new Error('Invalid access token! Expected: string value');
@@ -101,7 +105,7 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
                 if (resJson.error) {
                     return callback(resJson.error);
                 } else if (type === 'raster' && resJson.url && typeof(resJson.url) === 'string') {
-                    url = document.location.protocol + '//' + resJson.url;
+                    url = resJson.url;
                 } else if (type === 'vector') {
                     return callback(null, resJson);
                 } else {
