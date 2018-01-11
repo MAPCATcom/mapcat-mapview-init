@@ -43,7 +43,7 @@ mapcatview.initRasterView('< YOUR MAPCAT ACCESS TOKEN >', null, null, function(e
     //your code
 });
 
-mapcatview.initVectorView('< YOUR MAPCAT ACCESS TOKEN >', null, function(error, response) {
+mapcatview.initVectorViewView('< YOUR MAPCAT ACCESS TOKEN >', null, function(error, response) {
     //your code
 });
 ```
@@ -73,7 +73,7 @@ Parameter *scale* must be `1` or `2`. By default, it is `1`, meaning that the re
 }
 ```
 #### callback (error, response): *function* `(required)` - Callback function  
-It gets called when the map initialization request returns from our server. The first parameter holds the error message (`null` means no error), the second parameter in case of initRasterView function call is the response data holding your templated map view url (*string*). In case of using initVectorView the response data holds the vector tile style sheet (*object*).
+The last parameter must be a callback function. It gets called when the map initialization request returns from our server. Upon failure, the first parameter holds the error message (`null` means no error), the second parameter is the response data holding your templated map view url (*string*), or the vector tile style sheet (*object*).
 
 ### Example with [Leaflet JS](http://leafletjs.com/)
 In your HTML page `<head>` include Leaflet CSS file
