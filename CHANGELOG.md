@@ -2,6 +2,7 @@
 - Follow MapInit API url changes
 - Vector map style is returned from MapInit API call
 - Handle OpenLayers and Mapbox compatible style sheets
+- Autodetect usable url protocol
 
 ## 0.0.3 (Januar 3, 2018)
 - Change API url
