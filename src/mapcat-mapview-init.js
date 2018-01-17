@@ -2,17 +2,17 @@
 /*eslint-env node*/
 var https = require('https');
 
-function initRasterView (accessToken, layerOptions, rasterOptions, callback) {
+function initRasterView (callback, accessToken, layerOptions, rasterOptions) {
     var type = 'raster';
-    initView(type, accessToken, callback, layerOptions, rasterOptions);
+    initView(callback, type, accessToken, layerOptions, null, rasterOptions);
 }
 
-function initVectorView (accessToken, layerOptions, callback) {
+function initVectorView (callback, accessToken, layerOptions, vectorOptions) {
     var type = 'vector';
-    initView(type, accessToken, callback, layerOptions);
+    initView(callback, type, accessToken, layerOptions, vectorOptions, null);
 }
 
-function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
+function initView (callback, type, accessToken, layerOptions, vectorOptions, rasterOptions) {
     var data = {};
     data.protocol = (document && document.location && document.location.protocol) ?  document.location.protocol : "http";
     if (data.protocol !== "http" && data.protocol !== "https") {
@@ -22,37 +22,42 @@ function initView (type, accessToken, callback, vectorOptions, rasterOptions) {
         if (accessToken === undefined || accessToken === null || typeof(accessToken) !== 'string' || accessToken.length === 0){
             throw new Error('Invalid access token! Expected: string value');
         }
+
+        // parse layer options
         var layers = {
             base: '',
             ocean: '',
             relief: '',
             landcover: ''
         };
-        if (vectorOptions && vectorOptions.cycle) {
-            if (vectorOptions.cycle.road && typeof(vectorOptions.cycle.road) !== 'boolean') {
+        if (layerOptions && layerOptions.cycle) {
+            if (layerOptions.cycle.road && typeof(layerOptions.cycle.road) !== 'boolean') {
                 throw new Error('Layer option cycle.road set, but invalid type. Expected: true or false');
             }
-            if (vectorOptions.cycle.route && typeof(vectorOptions.cycle.route) !== 'boolean') {
+            if (layerOptions.cycle.route && typeof(layerOptions.cycle.route) !== 'boolean') {
                 throw new Error('Layer option cycle.route set, but invalid type. Expected: true or false');
             }
-            if (vectorOptions.cycle.road === true && vectorOptions.cycle.route === true) {
+            if (layerOptions.cycle.road === true && layerOptions.cycle.route === true) {
                 layers.cycle = '';
-            } else if (vectorOptions.cycle.road === true) {
+            } else if (layerOptions.cycle.road === true) {
                 layers.cycle = '--,road';
-            } else if (vectorOptions.cycle.route === true) {
+            } else if (layerOptions.cycle.route === true) {
                 layers.cycle = '--,route';
             }
         }
         data.layers = layers;
+
         if (type === 'vector') {
-            //default mapbox compatible style sheet
-            data.type = 1;
-            if (vectorOptions && vectorOptions.tileStyle) {
-                if (vectorOptions.tileStyle === 'openlayers') {
+            // parse vector options
+            if (vectorOptions && vectorOptions.styleSheet) {
+                if (vectorOptions.styleSheet === 'openlayers') {
                     data.type = 2;
+                } else {
+                    data.type = 1; // MapBox compatible style sheet
                 }
             }
         } else if (type === 'raster') {
+            // parse raster options
             if (rasterOptions && rasterOptions.lang !== undefined && rasterOptions.lang !== null) {
                 if (typeof(rasterOptions.lang) !== 'string') {
                     throw new Error('Invalid language parameter type! Expected: string value or null');
