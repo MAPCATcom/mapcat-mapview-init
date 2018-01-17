@@ -122,6 +122,7 @@ var rasterOptions = {
 
 mapcatview.initRasterView(function(error, response) {
     if (error) {
+        
         // error handling
 
         console.log(error);
@@ -178,7 +179,9 @@ var vectorOptions = {
 
 mapcatview.initVectorView(function(error, response) {
     if (error) {
+
         // error handling
+
         console.log(error);
         return;
     }
