@@ -136,7 +136,7 @@ mapcatview.initRasterView(function(error, response) {
         center: L.latLng(47.4979, 19.0402),
         zoom: 13,
         minZoom: 0,
-        maxZoom: 19
+        maxZoom: 18
     });
 
     L.tileLayer(tileUrl, {
