@@ -2,17 +2,17 @@
 /*eslint-env node*/
 var https = require('https');
 
-function initRasterView (accessToken, layerOptions, rasterOptions, callback) {
+function initRasterView (callback, accessToken, layerOptions, rasterOptions) {
     var type = 'raster';
-    initView(type, accessToken, callback, layerOptions, null, rasterOptions);
+    initView(callback, type, accessToken, layerOptions, null, rasterOptions);
 }
 
-function initVectorView (accessToken, layerOptions, layerOptions, callback) {
+function initVectorView (callback, accessToken, layerOptions, vectorOptions) {
     var type = 'vector';
-    initView(type, accessToken, callback, layerOptions, layerOptions, null);
+    initView(callback, type, accessToken, layerOptions, vectorOptions, null);
 }
 
-function initView (type, accessToken, callback, layerOptions, vectorOptions, rasterOptions) {
+function initView (callback, type, accessToken, layerOptions, vectorOptions, rasterOptions) {
     var data = {};
     data.protocol = (document && document.location && document.location.protocol) ?  document.location.protocol : "http";
     if (data.protocol !== "http" && data.protocol !== "https") {

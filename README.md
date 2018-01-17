@@ -30,26 +30,35 @@ Create your HTML skeleton and link mapcat-mapview-init library before your own c
 To initialize Mapcat mapview use one of the following functions  
 * for raster tiles:  
    
-`mapcatview.initRasterView(accessToken, layerOptions, rasterOptions, callback);`  
+`mapcatview.initRasterView(callback, accessToken, layerOptions, rasterOptions);`  
 
 * for vector tiles:  
 
-`mapcatview.initVectorView(accessToken, layerOptions, vectorOptions, callback);`  
+`mapcatview.initVectorView(callback, accessToken, layerOptions, vectorOptions);`  
   
 #### Example
 
 ```javascript
-mapcatview.initRasterView('< YOUR MAPCAT ACCESS TOKEN >', null, null, function(error, response) {
-    //your code
-});
+mapcatview.initRasterView(function(error, response) {
 
-mapcatview.initVectorView('< YOUR MAPCAT ACCESS TOKEN >', null, null, function(error, response) {
-    //your code
-});
+        //your code
+
+    }, '< YOUR MAPCAT ACCESS TOKEN >');
+
+mapcatview.initVectorView(function(error, response) {
+
+        //your code
+
+    }, '< YOUR MAPCAT ACCESS TOKEN >');
 ```
 
 ### Functions parameters
+
+#### callback (error, response): *function* `(required)` - Callback function  
+It gets called when the map initialization request returns from our server. The first parameter holds the error message (`null` means no error), the second parameter in case of initRasterView function call is the response data holding your templated map view url (*string*). In case of using initVectorView the response data holds the vector tile style sheet (*object*).
+
 #### accessToken: *string* `(required)` - Your Mapcat access token  
+
 #### layerOptions: *object* `(optional)` - Options to show cycle roads, routes layers  
 Layers are used to toggle specific subsets of data rendered on the raster and vector tiles. Customizable: cycle roads and routes. Default: cycle road and route layers are off.
 ##### Example
@@ -63,7 +72,7 @@ Layers are used to toggle specific subsets of data rendered on the raster and ve
 ```
 
 #### vectorOptions: *object* `(optional)` - Options to change style sheet format
-Customizable: vector style sheet format returned, possible values: `"mapbox"`, `"openlayers"`.
+Customizable: vector style sheet format returned, possible values: `"mapbox"`, `"openlayers"`. This defaults to: `"mapbox"`.
 ##### Example
 ```javascript
 {
@@ -81,8 +90,6 @@ Parameter *scale* must be `1` or `2`. By default, it is `1`, meaning that the re
     scale: 1
 }
 ```
-#### callback (error, response): *function* `(required)` - Callback function  
-It gets called when the map initialization request returns from our server. The first parameter holds the error message (`null` means no error), the second parameter in case of initRasterView function call is the response data holding your templated map view url (*string*). In case of using initVectorView the response data holds the vector tile style sheet (*object*).
 
 ### Example with [Leaflet JS](http://leafletjs.com/)
 In your HTML page `<head>` include Leaflet CSS file
@@ -113,11 +120,12 @@ var rasterOptions = {
     scale: 1
 };
 
-mapcatview.initRasterView('< YOUR MAPCAT ACCESS TOKEN >', layerOptions, rasterOptions, function(error, response) {
+mapcatview.initRasterView(function(error, response) {
     if (error) {
+        // error handling
+
         console.log(error);
         return;
-        // Error handling...
     }
 
     var tileUrl = response;
@@ -135,8 +143,9 @@ mapcatview.initRasterView('< YOUR MAPCAT ACCESS TOKEN >', layerOptions, rasterOp
         maxZoom: 18
     }).addTo(map);
 
-    // Your code...
-});
+    // your code
+
+}, '< YOUR MAPCAT ACCESS TOKEN >', layerOptions, rasterOptions);
 ```
 
 ### Example with [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js)
@@ -167,11 +176,11 @@ var vectorOptions = {
     styleSheet: "mapbox"
 };
 
-mapcatview.initVectorView('< YOUR MAPCAT ACCESS TOKEN >', layerOptions, vectorOptions, function(error, response) {
+mapcatview.initVectorView(function(error, response) {
     if (error) {
+        // error handling
         console.log(error);
         return;
-        // Error handling...
     }
 
     var styleSheet = response;
@@ -183,8 +192,9 @@ mapcatview.initVectorView('< YOUR MAPCAT ACCESS TOKEN >', layerOptions, vectorOp
         zoom: 13
     });
 
-    // Your code...
-});
+    // your code
+
+}, '< YOUR MAPCAT ACCESS TOKEN >', layerOptions, vectorOptions);
 ```
 
 Substitute `< YOUR MAPCAT ACCESS TOKEN >` with your access token.  
