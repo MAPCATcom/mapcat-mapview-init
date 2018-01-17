@@ -34,7 +34,7 @@ To initialize Mapcat mapview use one of the following functions
 
 * for vector tiles:  
 
-`mapcatview.initVectorView(accessToken, layerOptions, callback);`  
+`mapcatview.initVectorView(accessToken, layerOptions, vectorOptions, callback);`  
   
 #### Example
 
@@ -43,7 +43,7 @@ mapcatview.initRasterView('< YOUR MAPCAT ACCESS TOKEN >', null, null, function(e
     //your code
 });
 
-mapcatview.initVectorView('< YOUR MAPCAT ACCESS TOKEN >', null, function(error, response) {
+mapcatview.initVectorView('< YOUR MAPCAT ACCESS TOKEN >', null, null, function(error, response) {
     //your code
 });
 ```
@@ -59,6 +59,15 @@ Layers are used to toggle specific subsets of data rendered on the raster and ve
         road: true,
         route: false
     }
+}
+```
+
+#### vectorOptions: *object* `(optional)` - Options to change style sheet format
+Customizable: vector style sheet format returned, possible values: `"mapbox"`, `"openlayers"`.
+##### Example
+```javascript
+{
+    styleSheet: "mapbox"
 }
 ```
 
@@ -154,7 +163,11 @@ var layerOptions = {
     }
 };
 
-mapcatview.initVectorView('< YOUR MAPCAT ACCESS TOKEN >', layerOptions, function(error, response) {
+var vectorOptions = {
+    styleSheet: "mapbox"
+};
+
+mapcatview.initVectorView('< YOUR MAPCAT ACCESS TOKEN >', layerOptions, vectorOptions, function(error, response) {
     if (error) {
         console.log(error);
         return;
