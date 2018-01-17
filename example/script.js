@@ -11,7 +11,7 @@ function init(){
 }
 
 function load(layerOptions, rasterOptions){
-    mapcatview.initRasterView('jM9oGlsfWxOOYYF0kvuq2UbYl3XrVuUzJmwfnB6M', layerOptions, rasterOptions, function(error, response) {
+    mapcatview.initRasterView(function(error, response) {
         if (error) {
             console.log(error);
             return;
@@ -21,7 +21,7 @@ function load(layerOptions, rasterOptions){
         L.tileLayer(tileUrl, {
             attribution: 'Imagery &copy; 2017 <a href="https://mapcat.com">MAPCAT</a>, Map data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a contributors',
             maxZoom: 18
-        }).addTo(map);
+        }, 'jM9oGlsfWxOOYYF0kvuq2UbYl3XrVuUzJmwfnB6M', layerOptions, rasterOptions).addTo(map);
     });
 }
 
