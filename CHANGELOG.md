@@ -1,3 +1,6 @@
+## 0.0.6 (January 18, 2018)
+- Fix: https protocol handling
+
 ## 0.0.5 (January 17, 2018)
 - Added separate vector style sheet option parameter
 
