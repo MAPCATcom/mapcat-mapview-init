@@ -14,12 +14,12 @@ function initVectorView (callback, accessToken, layerOptions, vectorOptions) {
 
 function initView (callback, type, accessToken, layerOptions, vectorOptions, rasterOptions) {
     var data = {};
-    data.protocol = (document && document.location && document.location.protocol) ?  document.location.protocol : "http";
-    if (data.protocol !== "http" && data.protocol !== "https") {
-        data.protocol = "http";
+    data.protocol = 'http';
+    if (document && document.location && document.location.protocol && document.location.protocol === 'https:') {
+        data.protocol = 'https';
     }
     try {
-        if (accessToken === undefined || accessToken === null || typeof(accessToken) !== 'string' || accessToken.length === 0){
+        if (accessToken === undefined || accessToken === null || typeof(accessToken) !== 'string' || accessToken.length === 0) {
             throw new Error('Invalid access token! Expected: string value');
         }
 
