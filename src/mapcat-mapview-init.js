@@ -15,7 +15,7 @@ function initVectorView (callback, accessToken, layerOptions, vectorOptions) {
 function initView (callback, type, accessToken, layerOptions, vectorOptions, rasterOptions) {
     var data = {};
     data.protocol = 'http';
-    if(document && document.location && document.location.protocol && document.location.protocol === 'https:') {
+    if (document && document.location && document.location.protocol && document.location.protocol === 'https:') {
         data.protocol = 'https';
     }
     try {
