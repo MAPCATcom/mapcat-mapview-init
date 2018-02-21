@@ -2,25 +2,25 @@
 /*eslint-env node*/
 var https = require('https');
 
-function initRasterView (callback, accessToken, layerOptions, rasterOptions) {
+function initRasterView (callback, apiKey, layerOptions, rasterOptions) {
     var type = 'raster';
-    initView(callback, type, accessToken, layerOptions, null, rasterOptions);
+    initView(callback, type, apiKey, layerOptions, null, rasterOptions);
 }
 
-function initVectorView (callback, accessToken, layerOptions, vectorOptions) {
+function initVectorView (callback, apiKey, layerOptions, vectorOptions) {
     var type = 'vector';
-    initView(callback, type, accessToken, layerOptions, vectorOptions, null);
+    initView(callback, type, apiKey, layerOptions, vectorOptions, null);
 }
 
-function initView (callback, type, accessToken, layerOptions, vectorOptions, rasterOptions) {
+function initView (callback, type, apiKey, layerOptions, vectorOptions, rasterOptions) {
     var data = {};
     data.protocol = 'http';
     if (document && document.location && document.location.protocol && document.location.protocol === 'https:') {
         data.protocol = 'https';
     }
     try {
-        if (accessToken === undefined || accessToken === null || typeof(accessToken) !== 'string' || accessToken.length === 0) {
-            throw new Error('Invalid access token! Expected: string value');
+        if (apiKey === undefined || apiKey === null || typeof(apiKey) !== 'string' || apiKey.length === 0) {
+            throw new Error('Invalid MAPCAT Visualization API key! Expected: string value');
         }
 
         // parse layer options
@@ -92,7 +92,7 @@ function initView (callback, type, accessToken, layerOptions, vectorOptions, ras
         headers: {
             'Content-Type': 'application/json',
             'Content-Length': Buffer.byteLength(postData),
-            'X-Api-Key': accessToken
+            'X-Api-Key': apiKey
         }
     };
 

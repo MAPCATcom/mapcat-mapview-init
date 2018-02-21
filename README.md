@@ -1,6 +1,6 @@
 # @mapcat/mapview-init
 
-The *@mapcat/mapview-init* javascript library is used to obtain MAPCAT raster (and vector) tile urls, that you can use for your [Leaflet](http://leafletjs.com/) and [OpenLayers](https://openlayers.org/) projects. You can find the prebuilt version of the javascript library under `./dist` folder.
+The *@mapcat/mapview-init* javascript library is used to obtain MAPCAT raster tile url and vector tile style sheet, that you can use for your [Leaflet](http://leafletjs.com/) and [OpenLayers](https://openlayers.org/) projects. You can find the prebuilt version of the javascript library under `./dist` folder.
 
 ## Build dependencies
 * node (min _v6.9.5_)
@@ -30,26 +30,26 @@ Create your HTML skeleton and link mapcat-mapview-init library before your own c
 To initialize Mapcat mapview use one of the following functions  
 * for raster tiles:  
    
-`mapcatview.initRasterView(callback, accessToken, layerOptions, rasterOptions);`  
+`mapcatview.initRasterView(callback, apiKey, layerOptions, rasterOptions);`
 
 * for vector tiles:  
 
-`mapcatview.initVectorView(callback, accessToken, layerOptions, vectorOptions);`  
+`mapcatview.initVectorView(callback, apiKey, layerOptions, vectorOptions);`
   
 #### Example
 
 ```javascript
 mapcatview.initRasterView(function(error, response) {
 
-        //your code
+    //your code
 
-    }, '< YOUR MAPCAT ACCESS TOKEN >');
+}, '< Your MAPCAT Visualization API key >');
 
 mapcatview.initVectorView(function(error, response) {
 
-        //your code
+    //your code
 
-    }, '< YOUR MAPCAT ACCESS TOKEN >');
+}, '< Your MAPCAT Visualization API key >');
 ```
 
 ### Functions parameters
@@ -57,7 +57,7 @@ mapcatview.initVectorView(function(error, response) {
 #### callback (error, response): *function* `(required)` - Callback function  
 It gets called when the map initialization request returns from our server. The first parameter holds the error message (`null` means no error), the second parameter in case of initRasterView function call is the response data holding your templated map view url (*string*). In case of using initVectorView the response data holds the vector tile style sheet (*object*).
 
-#### accessToken: *string* `(required)` - Your Mapcat access token  
+#### apiKey: *string* `(required)` - Your MAPCAT Visualization API key
 
 #### layerOptions: *object* `(optional)` - Options to show cycle roads, routes layers  
 Layers are used to toggle specific subsets of data rendered on the raster and vector tiles. Customizable: cycle roads and routes. Default: cycle road and route layers are off.
@@ -146,7 +146,7 @@ mapcatview.initRasterView(function(error, response) {
 
     // your code
 
-}, '< YOUR MAPCAT ACCESS TOKEN >', layerOptions, rasterOptions);
+}, '< Your MAPCAT Visualization API key >', layerOptions, rasterOptions);
 ```
 
 ### Example with [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js)
@@ -197,10 +197,10 @@ mapcatview.initVectorView(function(error, response) {
 
     // your code
 
-}, '< YOUR MAPCAT ACCESS TOKEN >', layerOptions, vectorOptions);
+}, '< Your MAPCAT Visualization API key >', layerOptions, vectorOptions);
 ```
 
-Substitute `< YOUR MAPCAT ACCESS TOKEN >` with your access token.  
+Substitute `< Your MAPCAT Visualization API key >` with your Visualization API key.  
 
 Read [MAPCAT for Developers](https://docs.mapcat.com) for more information and examples.
 
