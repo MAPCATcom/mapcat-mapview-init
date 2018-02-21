@@ -1,3 +1,6 @@
+## 0.0.7 (February 21, 2018)
+- Access token renamed to API key
+
 ## 0.0.6 (January 18, 2018)
 - Fix: https protocol handling
 
