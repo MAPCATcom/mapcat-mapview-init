@@ -1,3 +1,6 @@
+## 0.0.8 (April 18, 2018)
+- Handle Tangram compatible style sheet
+
 ## 0.0.7 (February 21, 2018)
 - Access token renamed to API key
 

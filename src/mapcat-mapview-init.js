@@ -50,7 +50,9 @@ function initView (callback, type, apiKey, layerOptions, vectorOptions, rasterOp
         if (type === 'vector') {
             // parse vector options
             if (vectorOptions && vectorOptions.styleSheet) {
-                if (vectorOptions.styleSheet === 'openlayers') {
+                if (vectorOptions.styleSheet === 'tangram') {
+                    data.type = 3;
+                } else if (vectorOptions.styleSheet === 'openlayers') {
                     data.type = 2;
                 } else {
                     data.type = 1; // MapBox compatible style sheet
