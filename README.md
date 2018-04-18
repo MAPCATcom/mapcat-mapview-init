@@ -1,6 +1,6 @@
 # @mapcat/mapview-init
 
-The *@mapcat/mapview-init* javascript library is used to obtain MAPCAT raster tile url and vector tile style sheet, that you can use for your [Leaflet](http://leafletjs.com/) and [OpenLayers](https://openlayers.org/) projects. You can find the prebuilt version of the javascript library under `./dist` folder.
+The *@mapcat/mapview-init* javascript library is used to obtain MAPCAT raster tile url and vector tile style sheet, that you can use for your [Leaflet](http://leafletjs.com/), [OpenLayers](https://openlayers.org/) and [Tangram](https://mapzen.com/products/tangram/) projects. You can find the prebuilt version of the javascript library under `./dist` folder.
 
 ## Build dependencies
 * node (min _v6.9.5_)
@@ -72,7 +72,7 @@ Layers are used to toggle specific subsets of data rendered on the raster and ve
 ```
 
 #### vectorOptions: *object* `(optional)` - Options to change style sheet format
-Customizable: vector style sheet format returned, possible values: `"mapbox"`, `"openlayers"`. This defaults to: `"mapbox"`.
+Customizable: vector style sheet format returned, possible values: `"mapbox"`, `"openlayers"`, `"tangram"`. This defaults to: `"mapbox"`.
 ##### Example
 ```javascript
 {

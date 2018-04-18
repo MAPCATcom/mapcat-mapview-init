@@ -1,6 +1,6 @@
 {
   "name": "@mapcat/mapview-init",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "The @mapcat/mapview-init javascript library is used to obtain MAPCAT Visualization API.",
   "main": "./src/mapcat-mapview-init.js",
   "scripts": {
