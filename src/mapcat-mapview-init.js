@@ -54,8 +54,11 @@ function initView (callback, type, apiKey, layerOptions, vectorOptions, rasterOp
                     data.type = 3;
                 } else if (vectorOptions.styleSheet === 'openlayers') {
                     data.type = 2;
+                } else if (vectorOptions.styleSheet === 'navcenter') {
+                    data.type = 4;
+                    data.layers.navcenter = '';
                 } else {
-                    data.type = 1; // MapBox compatible style sheet
+                    data.type = vectorOptions.styleSheet; // custom named style sheet
                 }
             }
         } else if (type === 'raster') {
