@@ -1,3 +1,6 @@
+## 0.0.9 (May 4, 2018)
+- Removed style type validation from client side
+
 ## 0.0.8 (April 18, 2018)
 - Handle Tangram compatible style sheet
 
